@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { DashboardComponent } from './dashboard.component';
@@ -20,7 +21,7 @@ describe('DashboardComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, RouterTestingModule],
       providers: [
         { provide: MovieService, useValue: spy }
       ]
