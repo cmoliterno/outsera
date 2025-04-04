@@ -1,0 +1,125 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Lista de Filmes</h2>
+
+  <!-- Filtros -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Filtros</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="yearFilter">Ano</label>
+            <input 
+              type="number" 
+              id="yearFilter" 
+              class="form-control" 
+              [(ngModel)]="yearFilter" 
+              placeholder="Filtrar por ano"
+            >
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="winnerFilter">Vencedor?</label>
+            <select 
+              id="winnerFilter" 
+              class="form-select" 
+              [(ngModel)]="winnerFilter"
+            >
+              <option [ngValue]="null">Todos</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <div class="d-flex">
+            <button class="btn btn-primary me-2" (click)="applyFilters()">
+              Aplicar Filtros
+            </button>
+            <button class="btn btn-secondary" (click)="resetFilters()">
+              Limpar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Filmes -->
+  <div class="card">
+    <div class="card-header">
+      <h5>Lista de Filmes</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ano</th>
+              <th>Título</th>
+              <th>Estúdios</th>
+              <th>Produtores</th>
+              <th>Vencedor?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let movie of movies">
+              <td>{{ movie.id }}</td>
+              <td>{{ movie.year }}</td>
+              <td>{{ movie.title }}</td>
+              <td>{{ movie.studios.join(', ') }}</td>
+              <td>{{ movie.producers.join(', ') }}</td>
+              <td>{{ movie.winner ? 'Sim' : 'Não' }}</td>
+            </tr>
+            <tr *ngIf="movies.length === 0">
+              <td colspan="6" class="text-center">Nenhum filme encontrado com os filtros selecionados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <nav *ngIf="!loading && totalPages > 0" aria-label="Paginação">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(0)">
+              <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li 
+            *ngFor="let page of getPageArray()" 
+            class="page-item" 
+            [class.active]="page === currentPage"
+          >
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(page)">{{ page + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage + 1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(totalPages - 1)">
+              <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

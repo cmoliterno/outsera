@@ -1,27 +1,98 @@
-# OutseraFe
+# Golden Raspberry Awards
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
+Este projeto é uma aplicação web desenvolvida em Angular para exibir informações sobre indicados e vencedores da categoria Pior Filme do Golden Raspberry Awards.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js (versão 14 ou superior)
+- npm (normalmente instalado com o Node.js)
+- Angular CLI (`npm install -g @angular/cli`)
 
-## Code scaffolding
+## Instalação
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone o repositório:
+```bash
+git clone [URL_DO_REPOSITÓRIO]
+```
 
-## Build
+2. Navegue até o diretório do projeto:
+```bash
+cd outsera-fe
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Instale as dependências:
+```bash
+npm install
+```
 
-## Running unit tests
+## Executando o projeto
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Modo de desenvolvimento
 
-## Running end-to-end tests
+```bash
+ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+O servidor de desenvolvimento será iniciado e a aplicação estará disponível em `http://localhost:4200/`.
 
-## Further help
+### Build para produção
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng build --prod
+```
+
+Os arquivos de build serão armazenados no diretório `dist/`.
+
+### Executando com Docker
+
+O projeto possui uma configuração Docker para facilitar o deploy. Para construir e executar a aplicação usando Docker:
+
+1. Construa a imagem:
+```bash
+docker build -t golden-raspberry-awards .
+```
+
+2. Execute o container:
+```bash
+docker run -p 8080:80 golden-raspberry-awards
+```
+
+A aplicação estará disponível em `http://localhost:8080/`.
+
+## Testes unitários
+
+```bash
+ng test
+```
+
+Os testes serão executados via [Karma](https://karma-runner.github.io).
+
+## Estrutura do projeto
+
+- `src/app/components/`: Componentes compartilhados
+- `src/app/models/`: Modelos de dados
+- `src/app/services/`: Serviços para comunicação com a API
+- `src/app/views/`: Componentes das páginas principais (Dashboard e Lista de Filmes)
+
+## Funcionalidades
+
+### Dashboard
+
+- Mostra anos que tiveram mais de um vencedor
+- Exibe os três estúdios com mais vitórias
+- Mostra produtores com maior e menor intervalo entre vitórias
+- Permite buscar vencedores por ano específico
+
+### Lista de Filmes
+
+- Exibe todos os filmes com paginação
+- Permite filtrar por ano
+- Permite filtrar por vencedor/não vencedor
+
+## API
+
+A aplicação consome dados da API disponível em `https://challenge.outsera.tech/api/movies`.
+
+## Responsividade
+
+A aplicação é responsiva para resoluções a partir de 768x1280, conforme especificado nos requisitos. 

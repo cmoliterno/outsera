@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  min-height: calc(100vh - 124px);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table th {
+  background-color: #f5f5f5;
+}
+
+.card-header {
+  background-color: #f0f0f0;
+}
+
+/* Responsividade mínima 768x1280 conforme requisito */
+@media (min-width: 768px) and (min-height: 1280px) {
+  .container {
+    width: 100%;
+    max-width: 1280px;
+  }
+}
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 767.98px) {
+  .col-md-2, .col-md-10 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .content {
+    padding-top: 10px;
+  }
+}
