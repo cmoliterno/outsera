@@ -27,9 +27,28 @@ describe('MovieService', () => {
   it('should get movies with correct parameters', () => {
     const mockResponse = {
       content: [],
-      pageable: { pageSize: 15, pageNumber: 0 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 0,
+        offset: 0,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 100,
-      totalPages: 7
+      totalPages: 7,
+      last: false,
+      first: true,
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
+      number: 0,
+      numberOfElements: 0,
+      size: 15
     };
 
     service.getMovies(0, 15).subscribe(response => {

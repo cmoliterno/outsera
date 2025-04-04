@@ -101,12 +101,25 @@ describe('DashboardComponent', () => {
       content: [
         { id: 1, year: 2000, title: 'Movie 1', studios: [], producers: [], winner: true }
       ],
-      pageable: { pageSize: 15, pageNumber: 0 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 0,
+        offset: 0,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 1,
       totalPages: 1,
       last: true,
       first: true,
-      sort: { sorted: false, unsorted: true },
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
       number: 0,
       numberOfElements: 1,
       size: 15

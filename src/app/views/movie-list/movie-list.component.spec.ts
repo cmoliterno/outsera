@@ -36,12 +36,25 @@ describe('MovieListComponent', () => {
         { id: 1, year: 1980, title: 'Movie 1', studios: [], producers: [], winner: true },
         { id: 2, year: 1981, title: 'Movie 2', studios: [], producers: [], winner: false }
       ],
-      pageable: { pageSize: 15, pageNumber: 0 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 0,
+        offset: 0,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 2,
       totalPages: 1,
       last: true,
       first: true,
-      sort: { sorted: false, unsorted: true },
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
       number: 0,
       numberOfElements: 2,
       size: 15
@@ -62,12 +75,25 @@ describe('MovieListComponent', () => {
       content: [
         { id: 1, year: 1980, title: 'Movie 1', studios: [], producers: [], winner: true }
       ],
-      pageable: { pageSize: 15, pageNumber: 0 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 0,
+        offset: 0,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 1,
       totalPages: 1,
       last: true,
       first: true,
-      sort: { sorted: false, unsorted: true },
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
       number: 0,
       numberOfElements: 1,
       size: 15
@@ -87,12 +113,25 @@ describe('MovieListComponent', () => {
   it('should reset filters when resetFilters is called', () => {
     const mockResponse = {
       content: [],
-      pageable: { pageSize: 15, pageNumber: 0 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 0,
+        offset: 0,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 0,
       totalPages: 0,
       last: true,
       first: true,
-      sort: { sorted: false, unsorted: true },
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
       number: 0,
       numberOfElements: 0,
       size: 15
@@ -114,12 +153,25 @@ describe('MovieListComponent', () => {
   it('should navigate to page when goToPage is called with valid page', () => {
     const mockResponse = {
       content: [],
-      pageable: { pageSize: 15, pageNumber: 1 },
+      pageable: {
+        sort: {
+          sorted: false,
+          unsorted: true
+        },
+        pageSize: 15,
+        pageNumber: 1,
+        offset: 15,
+        paged: true,
+        unpaged: false
+      },
       totalElements: 30,
       totalPages: 2,
       last: true,
       first: false,
-      sort: { sorted: false, unsorted: true },
+      sort: {
+        sorted: false,
+        unsorted: true
+      },
       number: 1,
       numberOfElements: 15,
       size: 15
