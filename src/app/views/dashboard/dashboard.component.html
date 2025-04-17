@@ -2,23 +2,23 @@
   <h2 class="mb-4">Dashboard</h2>
 
   <div class="row">
-    <!-- Anos com múltiplos vencedores -->
+    <!-- List years with multiple winners -->
     <div class="col-md-6">
       <div class="card mb-4">
         <div class="card-header">
-          <h5>Anos com múltiplos vencedores</h5>
+          <h5>List years with multiple winners</h5>
         </div>
         <div class="card-body">
           <div *ngIf="loading.years" class="text-center">
             <div class="spinner-border" role="status">
-              <span class="visually-hidden">Carregando...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
           <table *ngIf="!loading.years" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Ano</th>
-                <th>Quantidade de Vencedores</th>
+                <th>Year</th>
+                <th>Win Count</th>
               </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                 <td>{{ year.winnerCount }}</td>
               </tr>
               <tr *ngIf="yearsWithMultipleWinners.length === 0">
-                <td colspan="2" class="text-center">Nenhum ano encontrado com múltiplos vencedores.</td>
+                <td colspan="2" class="text-center">No years found with multiple winners.</td>
               </tr>
             </tbody>
           </table>
@@ -35,23 +35,23 @@
       </div>
     </div>
 
-    <!-- Top 3 estúdios com vencedores -->
+    <!-- Top 3 studios with winners -->
     <div class="col-md-6">
       <div class="card mb-4">
         <div class="card-header">
-          <h5>Top 3 estúdios com vencedores</h5>
+          <h5>Top 3 studios with winners</h5>
         </div>
         <div class="card-body">
           <div *ngIf="loading.studios" class="text-center">
             <div class="spinner-border" role="status">
-              <span class="visually-hidden">Carregando...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
           <table *ngIf="!loading.studios" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Nome</th>
-                <th>Quantidade de Vitórias</th>
+                <th>Name</th>
+                <th>Win Count</th>
               </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@
                 <td>{{ studio.winCount }}</td>
               </tr>
               <tr *ngIf="studiosWithMostWins.length === 0">
-                <td colspan="2" class="text-center">Nenhum estúdio encontrado.</td>
+                <td colspan="2" class="text-center">No studios found.</td>
               </tr>
             </tbody>
           </table>
@@ -70,27 +70,27 @@
   </div>
 
   <div class="row">
-    <!-- Produtores com maior e menor intervalo entre vitórias -->
-    <div class="col-md-12">
-      <div class="card mb-4">
+    <!-- Producers with longest and shortest interval between wins -->
+    <div class="col-md-6">
+      <div class="card h-100">
         <div class="card-header">
-          <h5>Produtores com maior e menor intervalo entre vitórias</h5>
+          <h5 class="mb-0">Producers with longest and shortest interval between wins</h5>
         </div>
         <div class="card-body">
           <div *ngIf="loading.producers" class="text-center">
             <div class="spinner-border" role="status">
-              <span class="visually-hidden">Carregando...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
           <div *ngIf="!loading.producers">
-            <h6>Máximo</h6>
+            <h6>Maximum</h6>
             <table class="table table-bordered table-striped mb-4">
               <thead>
                 <tr>
-                  <th>Produtor</th>
-                  <th>Intervalo</th>
-                  <th>Ano Anterior</th>
-                  <th>Ano Seguinte</th>
+                  <th>Producer</th>
+                  <th>Interval</th>
+                  <th>Previous Year</th>
+                  <th>Following Year</th>
                 </tr>
               </thead>
               <tbody>
@@ -101,19 +101,19 @@
                   <td>{{ producer.followingWin }}</td>
                 </tr>
                 <tr *ngIf="maxWinIntervalProducers.length === 0">
-                  <td colspan="4" class="text-center">Nenhum produtor encontrado.</td>
+                  <td colspan="4" class="text-center">No producers found.</td>
                 </tr>
               </tbody>
             </table>
 
-            <h6>Mínimo</h6>
+            <h6>Minimum</h6>
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Produtor</th>
-                  <th>Intervalo</th>
-                  <th>Ano Anterior</th>
-                  <th>Ano Seguinte</th>
+                  <th>Producer</th>
+                  <th>Interval</th>
+                  <th>Previous Year</th>
+                  <th>Following Year</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,7 +124,7 @@
                   <td>{{ producer.followingWin }}</td>
                 </tr>
                 <tr *ngIf="minWinIntervalProducers.length === 0">
-                  <td colspan="4" class="text-center">Nenhum produtor encontrado.</td>
+                  <td colspan="4" class="text-center">No producers found.</td>
                 </tr>
               </tbody>
             </table>
@@ -132,54 +132,56 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <!-- Lista de vencedores por ano -->
-    <div class="col-md-12">
-      <div class="card mb-4">
+    <!-- List movie winners by year -->
+    <div class="col-md-6">
+      <div class="card h-100">
         <div class="card-header">
-          <h5>Vencedores por ano</h5>
+          <h5 class="mb-0">List movie winners by year</h5>
         </div>
         <div class="card-body">
-          <div class="input-group mb-3">
-            <input 
-              type="number" 
-              class="form-control" 
-              placeholder="Buscar por ano" 
-              [(ngModel)]="searchYear" 
-              (keyup.enter)="searchMoviesByYear()"
-            >
-            <button class="btn btn-primary" type="button" (click)="searchMoviesByYear()">
-              <i class="bi bi-search"></i> Buscar
-            </button>
+          <div class="mb-3">
+            <div class="d-flex">
+              <input 
+                type="number" 
+                class="form-control" 
+                [(ngModel)]="searchYear" 
+                placeholder="Search by year"
+                style="max-width: 200px;"
+              >
+              <button class="btn btn-primary ms-2" (click)="searchMoviesByYear()">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
           </div>
 
           <div *ngIf="loading.moviesByYear" class="text-center">
             <div class="spinner-border" role="status">
-              <span class="visually-hidden">Carregando...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
 
-          <table *ngIf="!loading.moviesByYear && searchYear" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Ano</th>
-                <th>Título</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let movie of movieWinnersByYear">
-                <td>{{ movie.id }}</td>
-                <td>{{ movie.year }}</td>
-                <td>{{ movie.title }}</td>
-              </tr>
-              <tr *ngIf="movieWinnersByYear.length === 0">
-                <td colspan="3" class="text-center">Nenhum filme vencedor encontrado para o ano {{ searchYear }}.</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped mb-0" *ngIf="!loading.moviesByYear">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Year</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let movie of movieWinnersByYear">
+                  <td>{{ movie.id }}</td>
+                  <td>{{ movie.year }}</td>
+                  <td>{{ movie.title }}</td>
+                </tr>
+                <tr *ngIf="movieWinnersByYear.length === 0">
+                  <td colspan="3" class="text-center">No winners found for this year.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

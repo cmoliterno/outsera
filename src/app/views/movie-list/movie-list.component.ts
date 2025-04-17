@@ -15,8 +15,7 @@ export class MovieListComponent implements OnInit {
   pageSize: number = 15;
   loading: boolean = false;
 
-  // Filtros
-  yearFilter: number | null = null;
+  yearFilter: string = '';
   winnerFilter: string | null = null;
 
   constructor(private movieService: MovieService) { }
@@ -27,23 +26,37 @@ export class MovieListComponent implements OnInit {
 
   loadMovies(): void {
     this.loading = true;
-    const winnerValue = this.parseWinnerFilter();
+    const year = this.yearFilter ? parseInt(this.yearFilter) : undefined;
+    const winner = this.parseWinnerFilter();
 
     this.movieService.getMovies(
       this.currentPage, 
       this.pageSize, 
-      this.yearFilter || undefined, 
-      winnerValue
+      year, 
+      winner
     ).subscribe({
       next: (response) => {
         this.movies = response.content;
         this.totalElements = response.totalElements;
         this.totalPages = response.totalPages;
+        
+        // Ajusta a página atual se estiver além do total de páginas
+        if (this.currentPage >= this.totalPages) {
+          this.currentPage = Math.max(0, this.totalPages - 1);
+          if (this.totalPages > 0) {
+            this.loadMovies();
+            return;
+          }
+        }
+        
         this.loading = false;
       },
       error: (error) => {
-        console.error('Erro ao carregar filmes', error);
+        console.error('Error loading movies', error);
         this.loading = false;
+        this.movies = [];
+        this.totalElements = 0;
+        this.totalPages = 0;
       }
     });
   }
@@ -53,43 +66,26 @@ export class MovieListComponent implements OnInit {
     this.loadMovies();
   }
 
-  resetFilters(): void {
-    this.yearFilter = null;
-    this.winnerFilter = null;
-    this.currentPage = 0;
-    this.loadMovies();
-  }
-
   goToPage(page: number): void {
-    if (page >= 0 && page < this.totalPages) {
+    const maxPages = Math.min(5, this.totalPages);
+    if (page >= 0 && page < maxPages) {
       this.currentPage = page;
       this.loadMovies();
     }
   }
 
-  parseWinnerFilter(): boolean | undefined {
-    if (this.winnerFilter === 'true') {
-      return true;
-    } else if (this.winnerFilter === 'false') {
-      return false;
-    }
+  private parseWinnerFilter(): boolean | undefined {
+    if (this.winnerFilter === 'true') return true;
+    if (this.winnerFilter === 'false') return false;
     return undefined;
   }
 
-  getPageArray(): number[] {
-    const pagesArray = [];
-    const maxPages = 5;
-    let startPage = Math.max(0, this.currentPage - Math.floor(maxPages / 2));
-    let endPage = Math.min(this.totalPages - 1, startPage + maxPages - 1);
-
-    if (endPage - startPage + 1 < maxPages) {
-      startPage = Math.max(0, endPage - maxPages + 1);
+  get visiblePages(): number[] {
+    const pages = [];
+    const maxPages = Math.min(5, this.totalPages);
+    for (let i = 0; i < maxPages; i++) {
+      pages.push(i);
     }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pagesArray.push(i);
-    }
-    
-    return pagesArray;
+    return pages;
   }
 }
